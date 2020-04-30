@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/txtLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Logout"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+
+            <RadioGroup
+                android:id="@+id/radioShop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile"
+                    android:textSize="17dp">
+
+                </RadioButton>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Tablet"
+                    android:textSize="17dp">
+
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/radioAccesories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Accessories"
+                    android:textSize="17dp">
+
+                </RadioButton>
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/layoutMobTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:paddingLeft="7dp"
+                        android:text="Brand"
+                        android:textColor="#000"
+                        android:textSize="17sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerBrandMobile"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+
+                    </Spinner>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:paddingLeft="7dp"
+                        android:text="Series"
+                        android:textColor="#000"
+                        android:textSize="17sp" />
+
+                    <Spinner
+                        android:id="@+id/spinnerSeries"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+
+                    </Spinner>
+                </LinearLayout>
+
+
+                <AutoCompleteTextView
+                    android:id="@+id/model_autocompleteTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/loginbuttonshape"
+                    android:hint="Model"
+                    android:inputType="text"
+                    android:paddingLeft="7dp"
+                    android:textColor="#000"
+                    android:textColorHint="#FFFFFF"
+                    android:textSize="17dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutAccesother"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+                <EditText
+                    android:id="@+id/edit_Brand"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="70dp"
+                    android:background="@drawable/loginbuttonshape"
+                    android:hint="Brand"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"></EditText>
+
+
+                <EditText
+                    android:id="@+id/edt_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="70dp"
+                    android:background="@drawable/loginbuttonshape"
+                    android:hint="Model"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"></EditText>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@android:color/black"
+                    android:text=" Warranty">
+
+                </TextView>
+
+                <RadioGroup
+                    android:id="@+id/radioWarranty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="In"
+                        android:textSize="17dp">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Out"
+                        android:textSize="17dp">
+
+                    </RadioButton>
+
+
+
+                </RadioGroup>
+
+                <Spinner
+                    android:id="@+id/Warranty_spinner"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right">
+                </Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:paddingLeft="7dp"
+                    android:text="Condition"
+                    android:textColor="#000"
+                    android:textSize="17sp" />
+
+                <Spinner
+                    android:id="@+id/condition_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                </Spinner>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <AutoCompleteTextView
+                    android:id="@+id/dealer_autocompleteTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/loginbuttonshape"
+                    android:hint="Select Dealer"
+                    android:inputType="text"
+                    android:paddingLeft="7dp"
+                    android:textColor="#000"
+                    android:textColorHint="#FFFFFF"
+                    android:textSize="17dp" />
+
+                <Button
+                    android:id="@+id/btnAddDetails"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="Add"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/white"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/card_shape"></Button>
+            </RelativeLayout>
+
+
+
+            <Button
+                android:id="@+id/btnFinalSubmit"
+                android:layout_width="100dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/loginbuttonshape"
+                android:text="Final Submit"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

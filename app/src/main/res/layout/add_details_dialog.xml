@@ -1,0 +1,189 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:orientation="vertical">
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="10dp">-->
+<!--        <EditText-->
+<!--            android:id="@+id/edt_Imei"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginRight="70dp"-->
+<!--            android:background="@drawable/loginbuttonshape"-->
+<!--            android:hint="Imei"-->
+<!--            android:paddingLeft="5dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textColorHint="@color/white"></EditText>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnImeiScan"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:text="Scan"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:background="@drawable/card_shape"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_height="40dp"/>-->
+
+<!--    </RelativeLayout>-->
+
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="10dp">-->
+<!--        <EditText-->
+<!--            android:id="@+id/edt_Barcode"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginRight="70dp"-->
+<!--            android:background="@drawable/loginbuttonshape"-->
+<!--            android:hint="BarCode"-->
+<!--            android:paddingLeft="5dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textColorHint="@color/white"></EditText>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnBarcodeScan"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:text="Scan"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:background="@drawable/card_shape"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_height="40dp"/>-->
+
+<!--    </RelativeLayout>-->
+
+
+
+<!--    <EditText-->
+<!--        android:id="@+id/edt_Price"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginRight="70dp"-->
+<!--        android:background="@drawable/loginbuttonshape"-->
+<!--        android:hint="Price"-->
+<!--        android:inputType="number"-->
+<!--        android:paddingLeft="5dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:singleLine="true"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="@color/white"></EditText>-->
+
+
+
+<!--    <EditText-->
+<!--        android:id="@+id/edt_GB"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginRight="70dp"-->
+<!--        android:background="@drawable/loginbuttonshape"-->
+<!--        android:hint="GB"-->
+<!--        android:inputType="number"-->
+<!--        android:paddingLeft="5dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:singleLine="true"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textColorHint="@color/white"></EditText>-->
+
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnAddMore"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:background="@drawable/loginbuttonshape"-->
+<!--            android:text="Add More"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:layout_margin="3dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnSubmitDetail"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:background="@drawable/loginbuttonshape"-->
+<!--            android:text="Submit"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:layout_margin="3dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_height="50dp"/>-->
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <TextView-->
+
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toRightOf="parent"-->
+<!--            app:layout_constraintRight_toLeftOf="parent"-->
+<!--            android:textSize="20dp"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:text="Imei"-->
+<!--            android:gravity="center"-->
+<!--            />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toRightOf="parent"-->
+<!--            app:layout_constraintRight_toLeftOf="parent"-->
+<!--            android:textSize="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:text="Barcode" />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight=".8"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toRightOf="parent"-->
+<!--            app:layout_constraintRight_toLeftOf="parent"-->
+<!--            android:textSize="20dp"-->
+<!--            android:gravity="center"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:text="Amount"-->
+<!--           />-->
+
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_weight=".5"-->
+<!--            android:gravity="center"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintLeft_toRightOf="parent"-->
+<!--            app:layout_constraintRight_toLeftOf="parent"-->
+<!--            android:textSize="20dp"-->
+<!--            android:textColor="@android:color/black"-->
+<!--            android:text="GB"-->
+<!--          />-->
+
+<!--    </LinearLayout>-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rvDetails"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
+
+
+</LinearLayout>
