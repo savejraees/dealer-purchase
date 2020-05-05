@@ -43,12 +43,16 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.saifi.dealerpurchase.adapter.DealerAdapter;
 import com.saifi.dealerpurchase.adapter.DetailsAdapter;
 import com.saifi.dealerpurchase.adapter.ModelAdapter;
 import com.saifi.dealerpurchase.model.BrandSpinner;
 import com.saifi.dealerpurchase.model.DetailsModel;
 import com.saifi.dealerpurchase.model.Model_Model;
 import com.saifi.dealerpurchase.model.SeriesModel;
+import com.saifi.dealerpurchase.retrofitModel.dealer.DealerDatum;
+import com.saifi.dealerpurchase.retrofitModel.dealer.DealerStatusModel;
+import com.saifi.dealerpurchase.util.ApiInterface;
 import com.saifi.dealerpurchase.util.SessonManager;
 import com.saifi.dealerpurchase.util.Url;
 import com.saifi.dealerpurchase.util.Views;
@@ -62,6 +66,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class MainActivity extends AppCompatActivity {
@@ -73,18 +83,20 @@ public class MainActivity extends AppCompatActivity {
     RadioButton radioAccesories;
     LinearLayout layoutAccesother, layoutMobTab;
     Spinner Warranty_spinner, spinnerSeries, spinnerBrandMobile, condition_spinner;
-    AutoCompleteTextView model_autocompleteTv;
+    AutoCompleteTextView model_autocompleteTv,dealer_autocompleteTv;
     EditText edit_Brand, edt_model;
 
     String warrenty = "", warrenty_month = "", productCategory = "", conditon_Mobile = "";
-    String brand_id = "", brandName = "", series_id = "", seriesName = "", idmodel = "", modelName = "";
+    String brand_id = "", brandName = "", series_id = "",dealer_id = "", seriesName = "", idmodel = "", modelName = "",dealerName = "";
     ModelAdapter modelAdapter;
+    DealerAdapter dealerAdapter;
     Views views = new Views();
     ArrayList<BrandSpinner> brand_list = new ArrayList<>();
     final ArrayList<String> brand_list_datamobile = new ArrayList();
     ArrayList<SeriesModel> series_list = new ArrayList<>();
     final ArrayList<String> series_list_dataSeries = new ArrayList();
     ArrayList<Model_Model> model_list = new ArrayList<>();
+    ArrayList<DealerDatum> listDealer = new ArrayList<>();
 
     String Warranty_data[] = {
             "0 - 1 month old",
@@ -107,11 +119,10 @@ public class MainActivity extends AppCompatActivity {
         requestStoragePermission();
         requestMultiplePermissions();
 
-
-
-       
         init();
         click();
+
+        hitApiDealer();
     }
 
     private void init() {
@@ -132,7 +143,9 @@ public class MainActivity extends AppCompatActivity {
         edit_Brand = findViewById(R.id.edit_Brand);
         edt_model = findViewById(R.id.edt_model);
         model_autocompleteTv = findViewById(R.id.model_autocompleteTv);
+        dealer_autocompleteTv = findViewById(R.id.dealer_autocompleteTv);
         model_autocompleteTv.setThreshold(1);
+        dealer_autocompleteTv.setThreshold(1);
 
         sessonManager = new SessonManager(MainActivity.this);
         userId = sessonManager.getToken();
@@ -272,6 +285,19 @@ public class MainActivity extends AppCompatActivity {
                 modelName = modelObject.getModelName();
                 idmodel = modelObject.getModel_id();
                 Log.d("asdsda", idmodel);
+            }
+        });
+
+        dealer_autocompleteTv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                DealerDatum modelObject = (DealerDatum) parent.getItemAtPosition(position);
+                dealerName = modelObject.getDealerName();
+                dealer_id = String.valueOf(modelObject.getId());
+                Log.d("asdsasdda", dealer_id+" "+dealerName);
             }
         });
 
@@ -485,6 +511,53 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    ////////////////////////// hit Dealer Api ////////////////////////////////////////
+    private void hitApiDealer() {
+        views.showProgress(MainActivity.this);
+        listDealer.clear();
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(Url.BASE_URL)
+                .build();
+
+        ApiInterface api = retrofit.create(ApiInterface.class);
+
+        Call<DealerStatusModel>  call = api.hitDealer(Url.key);
+
+
+        call.enqueue(new Callback<DealerStatusModel>() {
+            @Override
+            public void onResponse(Call<DealerStatusModel> call, Response<DealerStatusModel> response) {
+                views.hideProgress();
+
+                if (response.isSuccessful()) {
+                    DealerStatusModel model = response.body();
+
+                    listDealer = model.getData();
+
+                    dealerAdapter = new DealerAdapter(getApplicationContext(), R.layout.activity_main,
+                            R.id.lbl_name, listDealer);
+                    dealer_autocompleteTv.setAdapter(dealerAdapter);
+
+
+
+
+                } else {
+                    views.showToast(MainActivity.this, String.valueOf(response));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DealerStatusModel> call, Throwable t) {
+                views.hideProgress();
+                views.showToast(MainActivity.this, t.getMessage());
+            }
+        });
+    }
+
 
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)

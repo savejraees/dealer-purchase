@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -153,7 +154,8 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
                     totalAmount = totalAmount+Integer.parseInt(edt_Price.getText().toString());
                     Log.d("acsaasf",""+totalAmount);
                     setRv();
-                    onBackPressed();
+                    startActivity(new Intent(DetailActivity.this,MainActivity.class));
+                    //onBackPressed();
                 }
 
             }

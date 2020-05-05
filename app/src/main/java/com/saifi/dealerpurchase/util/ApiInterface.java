@@ -2,6 +2,7 @@ package com.saifi.dealerpurchase.util;
 
 import com.saifi.dealerpurchase.retrofitModel.LoginModel;
 import com.saifi.dealerpurchase.retrofitModel.StatusModel;
+import com.saifi.dealerpurchase.retrofitModel.dealer.DealerStatusModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,4 +19,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("check_active_user")
     Call<StatusModel> hitStatusApi(@Field("key") String key, @Field("user_id") String id);
+
+    @FormUrlEncoded
+    @POST("getdealer")
+    Call<DealerStatusModel> hitDealer(@Field("key") String key);
 }
