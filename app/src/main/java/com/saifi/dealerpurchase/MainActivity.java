@@ -674,11 +674,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
 
-        if (back_pressed + 2000 > System.currentTimeMillis())
-                super.onBackPressed();
+        if (back_pressed + 2000 > System.currentTimeMillis()){
+            super.onBackPressed();
+        }
+
             else {
                 Snackbar snackbar = Snackbar.make(mainLayout, "Double Tap to Exit!", Snackbar.LENGTH_SHORT);
                 View view = snackbar.getView();
