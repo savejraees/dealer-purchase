@@ -36,6 +36,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -76,18 +77,18 @@ import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnAddDetails,btnFinalSubmit;
+    Button btnAddDetails, btnFinalSubmit;
     TextView txtLogout;
     private static final int STORAGE_PERMISSION_CODE = 123;
     RadioGroup radioShop, radioWarranty;
     RadioButton radioAccesories;
     LinearLayout layoutAccesother, layoutMobTab;
     Spinner Warranty_spinner, spinnerSeries, spinnerBrandMobile, condition_spinner;
-    AutoCompleteTextView model_autocompleteTv,dealer_autocompleteTv;
+    AutoCompleteTextView model_autocompleteTv, dealer_autocompleteTv;
     EditText edit_Brand, edt_model;
 
     String warrenty = "", warrenty_month = "", productCategory = "", conditon_Mobile = "";
-    String brand_id = "", brandName = "", series_id = "",dealer_id = "", seriesName = "", idmodel = "", modelName = "",dealerName = "";
+    String brand_id = "", brandName = "", series_id = "", dealer_id = "", seriesName = "", idmodel = "", modelName = "", dealerName = "";
     ModelAdapter modelAdapter;
     DealerAdapter dealerAdapter;
     Views views = new Views();
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
     String condition[] = {"Excellent", "Very Good", "Good", "Average"};
     SessonManager sessonManager;
     String userId;
+    LinearLayout mainLayout;
+    long back_pressed = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         requestStoragePermission();
         requestMultiplePermissions();
 
+        Log.d("lpomjuh", String.valueOf(new DetailActivity().totalAmount));
         init();
         click();
 
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         layoutMobTab = findViewById(R.id.layoutMobTab);
         Warranty_spinner = findViewById(R.id.Warranty_spinner);
         txtLogout = findViewById(R.id.txtLogout);
-
+        mainLayout = findViewById(R.id.mainLayout);
 
         spinnerBrandMobile = findViewById(R.id.spinnerBrandMobile);
         spinnerSeries = findViewById(R.id.spinnerSeries);
@@ -160,13 +164,44 @@ public class MainActivity extends AppCompatActivity {
         btnAddDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,DetailActivity.class));
+                if(radioAccesories.isChecked()){
+                    brand_id = edit_Brand.getText().toString();
+                    idmodel = edt_model.getText().toString();
+                }
+                if (productCategory.equals("")) {
+                    Toast.makeText(MainActivity.this, "Select Mobile, Tablet Or Accessories", Toast.LENGTH_SHORT).show();
+                }
+                else if (warrenty == "") {
+                    Toast.makeText(MainActivity.this, "Select Warranty", Toast.LENGTH_SHORT).show();
+                }
+                else if (brand_id == "") {
+                    Toast.makeText(MainActivity.this, "Select Brand", Toast.LENGTH_SHORT).show();
+                }
+                else if (idmodel == "") {
+                    Toast.makeText(MainActivity.this, "Select Model", Toast.LENGTH_SHORT).show();
+                }
+                else if (dealer_id == "") {
+                    Toast.makeText(MainActivity.this, "Select Dealer", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    startActivity(new Intent(MainActivity.this, DetailActivity.class)
+                            .putExtra("product_category", productCategory)
+                            .putExtra("brand_id", brand_id)
+                            .putExtra("series_name", seriesName)
+                            .putExtra("model_id", idmodel)
+                            .putExtra("dealer_id", dealer_id)
+                            .putExtra("warrenty", warrenty)
+                            .putExtra("warrenty_month", warrenty_month)
+                            .putExtra("condition", conditon_Mobile)
+                    );
+                }
+
             }
         });
         btnFinalSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,FinalPurchaseActivity.class));
+                startActivity(new Intent(MainActivity.this, FinalPurchaseActivity.class));
             }
         });
 
@@ -187,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
                         layoutAccesother.setVisibility(View.GONE);
                         productCategory = "Tablet";
                         hitSpinnerBrandMobile();
-
                     }
                     if (checkedRadioButton.getText().toString().equals("Accessories")) {
                         layoutMobTab.setVisibility(View.GONE);
@@ -228,7 +262,6 @@ public class MainActivity extends AppCompatActivity {
                             public void onNothingSelected(AdapterView<?> parent) {
                             }
                         });
-
                     }
                     if (checkedRadioButton.getText().toString().equals("Out")) {
                         Warranty_spinner.setVisibility(View.GONE);
@@ -293,26 +326,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-
                 DealerDatum modelObject = (DealerDatum) parent.getItemAtPosition(position);
                 dealerName = modelObject.getDealerName();
                 dealer_id = String.valueOf(modelObject.getId());
-                Log.d("asdsasdda", dealer_id+" "+dealerName);
+                Log.d("asdsasdda", dealer_id + " " + dealerName);
             }
         });
 
         condition_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 conditon_Mobile = condition[position];
-                Log.d("sasfzczZ", conditon_Mobile);
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
@@ -321,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sessonManager.setToken("");
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 finishAffinity();
             }
         });
@@ -525,7 +553,7 @@ public class MainActivity extends AppCompatActivity {
 
         ApiInterface api = retrofit.create(ApiInterface.class);
 
-        Call<DealerStatusModel>  call = api.hitDealer(Url.key);
+        Call<DealerStatusModel> call = api.hitDealer(Url.key);
 
 
         call.enqueue(new Callback<DealerStatusModel>() {
@@ -541,8 +569,6 @@ public class MainActivity extends AppCompatActivity {
                     dealerAdapter = new DealerAdapter(getApplicationContext(), R.layout.activity_main,
                             R.id.lbl_name, listDealer);
                     dealer_autocompleteTv.setAdapter(dealerAdapter);
-
-
 
 
                 } else {
@@ -571,6 +597,7 @@ public class MainActivity extends AppCompatActivity {
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -587,6 +614,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void askForPermissioncamera(String permission, Integer requestCode) {
         if (ContextCompat.checkSelfPermission(getApplicationContext(), permission) != PackageManager.PERMISSION_GRANTED) {
 
@@ -607,6 +635,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     private void requestMultiplePermissions() {
         Dexter.withActivity(this)
                 .withPermissions(
@@ -641,5 +670,24 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .onSameThread()
                 .check();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+        if (back_pressed + 2000 > System.currentTimeMillis())
+                super.onBackPressed();
+            else {
+                Snackbar snackbar = Snackbar.make(mainLayout, "Double Tap to Exit!", Snackbar.LENGTH_SHORT);
+                View view = snackbar.getView();
+                view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                snackbar.show();
+                back_pressed = System.currentTimeMillis();
+            }
+//        }
+
+
     }
 }
