@@ -37,6 +37,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -51,6 +53,8 @@ import com.saifi.dealerpurchase.model.BrandSpinner;
 import com.saifi.dealerpurchase.model.DetailsModel;
 import com.saifi.dealerpurchase.model.Model_Model;
 import com.saifi.dealerpurchase.model.SeriesModel;
+import com.saifi.dealerpurchase.retrofitModel.FinalModel;
+import com.saifi.dealerpurchase.retrofitModel.ResponseError;
 import com.saifi.dealerpurchase.retrofitModel.dealer.DealerDatum;
 import com.saifi.dealerpurchase.retrofitModel.dealer.DealerStatusModel;
 import com.saifi.dealerpurchase.util.ApiInterface;
@@ -112,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     String userId;
     LinearLayout mainLayout;
     long back_pressed = 0;
-
+    TextView txtTotal;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
     private void init() {
         btnAddDetails = findViewById(R.id.btnAddDetails);
         btnFinalSubmit = findViewById(R.id.btnFinalSubmit);
+        txtTotal = findViewById(R.id.txtTotal);
+        txtTotal.setText("Total Amount = ₹"+DetailActivity.totalAmount+"/-");
 
         radioShop = findViewById(R.id.radioShop);
         radioWarranty = findViewById(R.id.radioWarranty);
@@ -198,10 +204,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         btnFinalSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, FinalPurchaseActivity.class));
+               if(DetailActivity.totalAmount==0){
+                   Toast.makeText(MainActivity.this, "Please Submit Some Phone or Tablet", Toast.LENGTH_SHORT).show();
+               }else if(dealer_id=="") {
+                   Toast.makeText(MainActivity.this, "Please Select Dealer", Toast.LENGTH_SHORT).show();
+               }else {
+                   hitApiFinal();
+               }
+
+               // startActivity(new Intent(MainActivity.this, FinalPurchaseActivity.class));
             }
         });
 
@@ -355,6 +370,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     //////////////////////////////////////////Brand Spinner /////////////////////////////////////
 
@@ -583,7 +599,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+ ///////////////////////////// hit Final Api ////////////////////////////
+ private void hitApiFinal() {
+     views.showProgress(MainActivity.this);
+     Retrofit retrofit = new Retrofit.Builder()
+             .addConverterFactory(GsonConverterFactory.create())
+             .baseUrl(Url.BASE_URL)
+             .build();
 
+     ApiInterface api = retrofit.create(ApiInterface.class);
+     Call<FinalModel> call = api.hitFinalApi(Url.key,dealer_id,sessonManager.getToken());
+
+     call.enqueue(new Callback<FinalModel>() {
+         @Override
+         public void onResponse(Call<FinalModel> call, Response<FinalModel> response) {
+             views.hideProgress();
+             if (response.isSuccessful()) {
+                 FinalModel FinalModel = response.body();
+
+                 if (FinalModel.getCode().equals("200")) {
+                     views.showToast(getApplicationContext(), FinalModel.getMsg());
+                     startActivity(new Intent(getApplicationContext(), FinalPurchaseActivity.class));
+
+                 }
+                 else {
+
+                     views.showToast(getApplicationContext(), ""+FinalModel.getMsg());
+                 }
+             }
+             else
+             {
+                 Gson gson = new GsonBuilder().create();
+                 ResponseError responseError = gson.fromJson(response.errorBody().charStream(),ResponseError.class);
+                 views.showToast(getApplicationContext(), responseError.getMsg());
+             }
+         }
+
+         @Override
+         public void onFailure(Call<FinalModel> call, Throwable t) {
+             views.showToast(getApplicationContext(), t.getMessage());
+             views.hideProgress();
+         }
+     });
+ }
 
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)

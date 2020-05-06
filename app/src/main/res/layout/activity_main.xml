@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
-    android:id="@+id/mainLayout"
     tools:context=".MainActivity">
 
     <TextView
@@ -189,17 +189,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="17dp"
                     android:layout_marginTop="5dp"
+                    android:text=" Warranty"
                     android:textColor="@android:color/black"
-                    android:text=" Warranty">
+                    android:textSize="17dp">
 
                 </TextView>
 
@@ -207,8 +207,8 @@
                     android:id="@+id/radioWarranty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
                     android:layout_marginLeft="20dp"
+                    android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -229,16 +229,14 @@
                     </RadioButton>
 
 
-
                 </RadioGroup>
 
                 <Spinner
                     android:id="@+id/Warranty_spinner"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="right">
-                </Spinner>
+                    android:layout_gravity="right"
+                    android:visibility="gone"></Spinner>
             </LinearLayout>
 
             <LinearLayout
@@ -289,26 +287,32 @@
                     android:id="@+id/btnAddDetails"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="Add"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/card_shape"></Button>
+                    android:background="@drawable/card_shape"
+                    android:text="Add"
+                    android:textColor="@color/white"></Button>
             </RelativeLayout>
 
-
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/btnFinalSubmit"
                 android:layout_width="100dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/loginbuttonshape"
                 android:text="Final Submit"
                 android:textAllCaps="false"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/white"
-                android:layout_height="wrap_content"/>
+                android:textColor="@color/white" />
 
 
         </LinearLayout>

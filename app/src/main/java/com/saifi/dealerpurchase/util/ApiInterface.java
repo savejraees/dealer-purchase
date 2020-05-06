@@ -1,6 +1,7 @@
 package com.saifi.dealerpurchase.util;
 
 import com.saifi.dealerpurchase.retrofitModel.DetailModel;
+import com.saifi.dealerpurchase.retrofitModel.FinalModel;
 import com.saifi.dealerpurchase.retrofitModel.LoginModel;
 import com.saifi.dealerpurchase.retrofitModel.StatusModel;
 import com.saifi.dealerpurchase.retrofitModel.dealer.DealerStatusModel;
@@ -35,4 +36,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("getdealer")
     Call<DealerStatusModel> hitDealer(@Field("key") String key);
+
+    @FormUrlEncoded
+    @POST("final_submit_dealer_order")
+    Call<FinalModel> hitFinalApi(@Field("key") String key,@Field("dealer_id") String dealer_id,@Field("userid") String userid);
 }
