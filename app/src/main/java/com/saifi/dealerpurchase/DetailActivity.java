@@ -66,7 +66,8 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
     int countScan;
 
     static int totalAmount = 0;
-    String productCategory, brand_id, seriesName, model_id, dealer_id, warrenty, warrenty_month, conditon_Mobile;
+    static String dealerId="";
+    String productCategory, brand_id, seriesName, model_id, warrenty, warrenty_month, conditon_Mobile;
     String imei_no = "", purchase_amount = "", barcode_scan = "", storage = "";
 
     Views views;
@@ -84,11 +85,11 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
         brand_id = getIntent().getStringExtra("brand_id");
         seriesName = getIntent().getStringExtra("series_name");
         model_id = getIntent().getStringExtra("model_id");
-        dealer_id = getIntent().getStringExtra("dealer_id");
         warrenty = getIntent().getStringExtra("warrenty");
         warrenty_month = getIntent().getStringExtra("warrenty_month");
         conditon_Mobile = getIntent().getStringExtra("condition");
 
+        Log.d("dealerIds",dealerId);
         init();
         allAclick();
 
@@ -239,7 +240,7 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
 
         ApiInterface api = retrofit.create(ApiInterface.class);
         Call<DetailModel> call = api.hitSubmitDetailApi(Url.key,"","Dealer Purchase",productCategory,
-                brand_id,seriesName,model_id,dealer_id,warrenty,warrenty_month,conditon_Mobile,sessonManager.getBuisnessLocationId(),
+                brand_id,seriesName,model_id,dealerId,warrenty,warrenty_month,conditon_Mobile,sessonManager.getBuisnessLocationId(),
                 sessonManager.getToken(),imei_no,purchase_amount,barcode_scan,storage);
 
         call.enqueue(new Callback<DetailModel>() {

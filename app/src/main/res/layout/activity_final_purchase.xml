@@ -8,10 +8,10 @@
     tools:context=".FinalPurchaseActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvInvoice"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,112 +21,78 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="100dp"
+            android:id="@+id/selectInvoiceBtn"
+            android:layout_width="wrap_content"
             android:background="@drawable/loginbuttonshape"
-            android:text="Select"
+            android:text="  Select Invoice Photo  "
             android:textAllCaps="false"
             android:layout_margin="3dp"
             android:textColor="@color/white"
             android:layout_height="wrap_content"/>
 
         <Button
-            android:layout_width="100dp"
+            android:id="@+id/uploadInvoiceBtn"
+            android:layout_width="wrap_content"
             android:background="@drawable/loginbuttonshape"
-            android:text="Upload"
+            android:text="  Upload Invoice Photo  "
             android:textAllCaps="false"
             android:layout_margin="3dp"
             android:textColor="@color/white"
             android:layout_height="50dp"/>
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:textSize="20dp"
+        android:paddingLeft="10dp"
+        android:textColor="@android:color/black"/>
 
-    <!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:orientation="horizontal">-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal">
 
-<!--        <TextView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="8"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="Invoice photo"-->
-<!--            android:textSize="20dp"-->
-<!--            android:paddingLeft="10dp"-->
-<!--            android:textColor="@android:color/black"/>-->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:text="Invoice Pdf"
+            android:textSize="20dp"
+            android:paddingLeft="10dp"
+            android:textColor="@android:color/black"/>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="3"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="vertical">-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
 
-<!--        <ImageView-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:src="@drawable/phone_icon"></ImageView>-->
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/pdf_icon"></ImageView>
 
-<!--        <Button-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:background="@drawable/loginbuttonshape"-->
-<!--            android:text="Upload"></Button>-->
+            <Button
+                android:id="@+id/uploadPdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/loginbuttonshape"
+                android:text="Upload"></Button>
 
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
+        </LinearLayout>
 
 
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="OR"-->
-<!--        android:textSize="20dp"-->
-<!--        android:paddingLeft="10dp"-->
-<!--        android:textColor="@android:color/black"/>-->
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="150dp"-->
-<!--        android:orientation="horizontal">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="8"-->
-<!--            android:gravity="center_vertical"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:text="Invoice Pdf"-->
-<!--            android:textSize="20dp"-->
-<!--            android:paddingLeft="10dp"-->
-<!--            android:textColor="@android:color/black"/>-->
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_weight="3"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <ImageView-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:src="@drawable/pdf_icon"></ImageView>-->
-
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:background="@drawable/loginbuttonshape"-->
-<!--                android:text="Upload"></Button>-->
-
-<!--        </LinearLayout>-->
-<!--    </LinearLayout>-->
-
+    </LinearLayout>
     <Button
+        android:id="@+id/doneBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:textColor="@color/white"
@@ -134,6 +100,4 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/card_shape"
         android:text="Done!"></Button>
-
-
 </LinearLayout>

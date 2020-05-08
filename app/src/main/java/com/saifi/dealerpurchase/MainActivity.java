@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     EditText edit_Brand, edt_model;
 
     String warrenty = "", warrenty_month = "", productCategory = "", conditon_Mobile = "";
-    String brand_id = "", brandName = "", series_id = "", dealer_id = "", seriesName = "", idmodel = "", modelName = "", dealerName = "";
+    String brand_id = "", brandName = "", series_id = "", seriesName = "", idmodel = "", modelName = "", dealerName = "";
     ModelAdapter modelAdapter;
     DealerAdapter dealerAdapter;
     Views views = new Views();
@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         requestStoragePermission();
         requestMultiplePermissions();
 
-        Log.d("lpomjuh", String.valueOf(new DetailActivity().totalAmount));
         init();
         click();
 
@@ -160,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         sessonManager = new SessonManager(MainActivity.this);
         userId = sessonManager.getToken();
 
+        Log.d("delerCheck",DetailActivity.dealerId);
+
         //////////////////// condtion spinner //////////////////
         condition_spinner = findViewById(R.id.condition_spinner);
         ArrayAdapter cndnAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_spinner_dropdown_item, condition);
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (idmodel == "") {
                     Toast.makeText(MainActivity.this, "Select Model", Toast.LENGTH_SHORT).show();
                 }
-                else if (dealer_id == "") {
+                else if (DetailActivity.dealerId == "") {
                     Toast.makeText(MainActivity.this, "Select Dealer", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -195,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
                             .putExtra("brand_id", brand_id)
                             .putExtra("series_name", seriesName)
                             .putExtra("model_id", idmodel)
-                            .putExtra("dealer_id", dealer_id)
                             .putExtra("warrenty", warrenty)
                             .putExtra("warrenty_month", warrenty_month)
                             .putExtra("condition", conditon_Mobile)
@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                if(DetailActivity.totalAmount==0){
                    Toast.makeText(MainActivity.this, "Please Submit Some Phone or Tablet", Toast.LENGTH_SHORT).show();
-               }else if(dealer_id=="") {
+               }else if(DetailActivity.dealerId=="") {
                    Toast.makeText(MainActivity.this, "Please Select Dealer", Toast.LENGTH_SHORT).show();
                }else {
                    hitApiFinal();
@@ -343,8 +343,8 @@ public class MainActivity extends AppCompatActivity {
                                     int position, long id) {
                 DealerDatum modelObject = (DealerDatum) parent.getItemAtPosition(position);
                 dealerName = modelObject.getDealerName();
-                dealer_id = String.valueOf(modelObject.getId());
-                Log.d("asdsasdda", dealer_id + " " + dealerName);
+                DetailActivity.dealerId = String.valueOf(modelObject.getId());
+                Log.d("asdsasdda", DetailActivity.dealerId + " " + dealerName);
             }
         });
 
@@ -608,7 +608,7 @@ public class MainActivity extends AppCompatActivity {
              .build();
 
      ApiInterface api = retrofit.create(ApiInterface.class);
-     Call<FinalModel> call = api.hitFinalApi(Url.key,dealer_id,sessonManager.getToken());
+     Call<FinalModel> call = api.hitFinalApi(Url.key,DetailActivity.dealerId,sessonManager.getToken());
 
      call.enqueue(new Callback<FinalModel>() {
          @Override
@@ -619,6 +619,7 @@ public class MainActivity extends AppCompatActivity {
 
                  if (FinalModel.getCode().equals("200")) {
                      views.showToast(getApplicationContext(), FinalModel.getMsg());
+                     DetailActivity.totalAmount=0;
                      startActivity(new Intent(getApplicationContext(), FinalPurchaseActivity.class));
 
                  }

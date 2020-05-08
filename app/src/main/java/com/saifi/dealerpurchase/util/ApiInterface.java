@@ -1,15 +1,23 @@
 package com.saifi.dealerpurchase.util;
 
+import com.google.gson.JsonObject;
 import com.saifi.dealerpurchase.retrofitModel.DetailModel;
 import com.saifi.dealerpurchase.retrofitModel.FinalModel;
 import com.saifi.dealerpurchase.retrofitModel.LoginModel;
 import com.saifi.dealerpurchase.retrofitModel.StatusModel;
 import com.saifi.dealerpurchase.retrofitModel.dealer.DealerStatusModel;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface ApiInterface {
 
@@ -40,4 +48,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("final_submit_dealer_order")
     Call<FinalModel> hitFinalApi(@Field("key") String key,@Field("dealer_id") String dealer_id,@Field("userid") String userid);
+
+    @Multipart
+    @POST("uploade_dealer_invoice")
+    Call<JsonObject> imageAPi(@Part MultipartBody.Part[] imageArray1, @PartMap() Map<String, RequestBody> partMap);
 }
