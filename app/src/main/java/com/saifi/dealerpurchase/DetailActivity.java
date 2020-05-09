@@ -65,7 +65,7 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
     ArrayList<DetailsModel> detailsList = new ArrayList<>();
     int countScan;
 
-    static int totalAmount = 0;
+    static long totalAmount = 0;
     static String dealerId="";
     String productCategory, brand_id, seriesName, model_id, warrenty, warrenty_month, conditon_Mobile;
     String imei_no = "", purchase_amount = "", barcode_scan = "", storage = "";
@@ -150,11 +150,11 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
                 } else {
                     if (purchase_amount.equals("")) {
                         purchase_amount = edt_Price.getText().toString();
-                        totalAmount = totalAmount + Integer.parseInt(edt_Price.getText().toString());
+                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
 
                     } else {
                         purchase_amount = purchase_amount + "," + edt_Price.getText().toString();
-                        totalAmount = totalAmount + Integer.parseInt(edt_Price.getText().toString());
+                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
 
                     }
                     if (storage.equals("")) {
@@ -186,19 +186,23 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
                 && edt_Price.getText().toString().isEmpty()&& edt_GB.getText().toString().isEmpty()) {
 //                    edt_Imei.setError("Can't be Blank");
 //                    edt_Imei.requestFocus();
+                    if (storage.equals("")){
+                        Toast.makeText(DetailActivity.this, "Please add Some Detail", Toast.LENGTH_SHORT).show();
+                    }else {
+                        hitSubmitApi();
+                    }
 
-                    hitSubmitApi();
                 }
 
                 if (!(edt_Imei.getText().toString().isEmpty()&&edt_Barcode.getText().toString().isEmpty()
                         && edt_Price.getText().toString().isEmpty()&& edt_GB.getText().toString().isEmpty())) {
                     if (purchase_amount.equals("")) {
                         purchase_amount = edt_Price.getText().toString();
-                        totalAmount = totalAmount + Integer.parseInt(edt_Price.getText().toString());
+                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
 
                     } else {
                         purchase_amount = purchase_amount + "," + edt_Price.getText().toString();
-                        totalAmount = totalAmount + Integer.parseInt(edt_Price.getText().toString());
+                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
 
                     }
                     if (storage.equals("")) {

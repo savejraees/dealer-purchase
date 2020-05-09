@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         txtTotal = findViewById(R.id.txtTotal);
         txtDealer = findViewById(R.id.txtDealer);
         txtTotal.setText("Total Amount = ₹"+DetailActivity.totalAmount+"/-");
-        txtDealer.setText("Your Selected Dealer: "+dealerName);
+        txtDealer.setText("Selected Dealer: "+dealerName);
 
         radioShop = findViewById(R.id.radioShop);
         radioWarranty = findViewById(R.id.radioWarranty);
@@ -347,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
                 DealerDatum modelObject = (DealerDatum) parent.getItemAtPosition(position);
                 dealerName = modelObject.getDealerName();
                 DetailActivity.dealerId = String.valueOf(modelObject.getId());
-                txtDealer.setText("Your Select Dealer: "+dealerName);
+                txtDealer.setText("Select Dealer: "+dealerName);
 
                 Log.d("asdsasdda", DetailActivity.dealerId + " " + dealerName);
             }
@@ -747,7 +747,7 @@ public class MainActivity extends AppCompatActivity {
             else {
                 Snackbar snackbar = Snackbar.make(mainLayout, "Double Tap to Exit!", Snackbar.LENGTH_SHORT);
                 View view = snackbar.getView();
-                view.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                 snackbar.show();
                 back_pressed = System.currentTimeMillis();
             }
