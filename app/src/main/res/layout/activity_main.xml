@@ -167,7 +167,7 @@
                     android:paddingLeft="5dp"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white"></EditText>
+                    android:textColorHint="#E3E0E0"></EditText>
 
 
                 <EditText
@@ -181,7 +181,8 @@
                     android:paddingLeft="5dp"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white"></EditText>
+                    android:focusableInTouchMode="true"
+                    android:textColorHint="#E3E0E0"></EditText>
 
 
             </LinearLayout>
@@ -280,7 +281,7 @@
                     android:inputType="text"
                     android:paddingLeft="7dp"
                     android:textColor="#000"
-                    android:textColorHint="#FFFFFF"
+                    android:textColorHint="#E3E0E0"
                     android:textSize="17dp" />
 
                 <Button
@@ -296,12 +297,22 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/txtDealer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <TextView
                 android:id="@+id/txtTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total Amount"
                 android:textColor="@android:color/black"
                 android:textSize="20dp" />
+
+
 
             <Button
                 android:id="@+id/btnFinalSubmit"

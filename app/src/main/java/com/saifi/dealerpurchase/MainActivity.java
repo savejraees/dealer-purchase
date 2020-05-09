@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     EditText edit_Brand, edt_model;
 
     String warrenty = "", warrenty_month = "", productCategory = "", conditon_Mobile = "";
-    String brand_id = "", brandName = "", series_id = "", seriesName = "", idmodel = "", modelName = "", dealerName = "";
+    String brand_id = "", brandName = "", series_id = "", seriesName = "", idmodel = "", modelName = "";
     ModelAdapter modelAdapter;
     DealerAdapter dealerAdapter;
     Views views = new Views();
@@ -116,7 +116,8 @@ public class MainActivity extends AppCompatActivity {
     String userId;
     LinearLayout mainLayout;
     long back_pressed = 0;
-    TextView txtTotal;
+    TextView txtTotal,txtDealer;
+    static String dealerName="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
         btnAddDetails = findViewById(R.id.btnAddDetails);
         btnFinalSubmit = findViewById(R.id.btnFinalSubmit);
         txtTotal = findViewById(R.id.txtTotal);
+        txtDealer = findViewById(R.id.txtDealer);
         txtTotal.setText("Total Amount = ₹"+DetailActivity.totalAmount+"/-");
+        txtDealer.setText("Your Selected Dealer: "+dealerName);
 
         radioShop = findViewById(R.id.radioShop);
         radioWarranty = findViewById(R.id.radioWarranty);
@@ -344,6 +347,8 @@ public class MainActivity extends AppCompatActivity {
                 DealerDatum modelObject = (DealerDatum) parent.getItemAtPosition(position);
                 dealerName = modelObject.getDealerName();
                 DetailActivity.dealerId = String.valueOf(modelObject.getId());
+                txtDealer.setText("Your Select Dealer: "+dealerName);
+
                 Log.d("asdsasdda", DetailActivity.dealerId + " " + dealerName);
             }
         });

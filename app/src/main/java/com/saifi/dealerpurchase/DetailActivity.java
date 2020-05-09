@@ -89,7 +89,7 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
         warrenty_month = getIntent().getStringExtra("warrenty_month");
         conditon_Mobile = getIntent().getStringExtra("condition");
 
-        Log.d("dealerIds",dealerId);
+
         init();
         allAclick();
 
@@ -182,19 +182,16 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
         btnSubmitDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edt_Imei.getText().toString().isEmpty()) {
-                    edt_Imei.setError("Can't be Blank");
-                    edt_Imei.requestFocus();
-                } else if (edt_Barcode.getText().toString().isEmpty()) {
-                    edt_Barcode.setError("Can't be Blank");
-                    edt_Barcode.requestFocus();
-                } else if (edt_Price.getText().toString().isEmpty()) {
-                    edt_Price.setError("Can't be Blank");
-                    edt_Price.requestFocus();
-                } else if (edt_GB.getText().toString().isEmpty()) {
-                    edt_GB.setError("Can't be Blank");
-                    edt_GB.requestFocus();
-                } else {
+                if (edt_Imei.getText().toString().isEmpty()&&edt_Barcode.getText().toString().isEmpty()
+                && edt_Price.getText().toString().isEmpty()&& edt_GB.getText().toString().isEmpty()) {
+//                    edt_Imei.setError("Can't be Blank");
+//                    edt_Imei.requestFocus();
+
+                    hitSubmitApi();
+                }
+
+                if (!(edt_Imei.getText().toString().isEmpty()&&edt_Barcode.getText().toString().isEmpty()
+                        && edt_Price.getText().toString().isEmpty()&& edt_GB.getText().toString().isEmpty())) {
                     if (purchase_amount.equals("")) {
                         purchase_amount = edt_Price.getText().toString();
                         totalAmount = totalAmount + Integer.parseInt(edt_Price.getText().toString());
@@ -221,6 +218,7 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
                     } else {
                         barcode_scan = barcode_scan + "," + edt_Barcode.getText().toString();;;
                     }
+
 
                     hitSubmitApi();
                    // startActivity(new Intent(DetailActivity.this, MainActivity.class));

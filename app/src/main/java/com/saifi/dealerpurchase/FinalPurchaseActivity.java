@@ -102,6 +102,7 @@ public class FinalPurchaseActivity extends AppCompatActivity {
                     Toast.makeText(FinalPurchaseActivity.this, "Please Upload image or pdf", Toast.LENGTH_SHORT).show();
                 }else{
                     DetailActivity.dealerId="";
+                    MainActivity.dealerName="";
                     startActivity(new Intent(FinalPurchaseActivity.this, MainActivity.class));
                     finishAffinity();
                 }
