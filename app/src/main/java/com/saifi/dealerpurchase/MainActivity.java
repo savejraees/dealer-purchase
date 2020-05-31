@@ -174,10 +174,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(radioAccesories.isChecked()){
-                    brand_id = edit_Brand.getText().toString();
-                    idmodel = edt_model.getText().toString();
-                }
+
                 if (productCategory.equals("")) {
                     Toast.makeText(MainActivity.this, "Select Mobile, Tablet Or Accessories", Toast.LENGTH_SHORT).show();
                 }
@@ -194,6 +191,11 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Select Dealer", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    if(radioAccesories.isChecked()){
+                        brand_id = edit_Brand.getText().toString();
+                        idmodel = edt_model.getText().toString();
+                    }
+
                     startActivity(new Intent(MainActivity.this, DetailActivity.class)
                             .putExtra("product_category", productCategory)
                             .putExtra("brand_id", brand_id)
@@ -606,6 +608,8 @@ public class MainActivity extends AppCompatActivity {
     }
  ///////////////////////////// hit Final Api ////////////////////////////
  private void hitApiFinal() {
+
+
      views.showProgress(MainActivity.this);
      Retrofit retrofit = new Retrofit.Builder()
              .addConverterFactory(GsonConverterFactory.create())
