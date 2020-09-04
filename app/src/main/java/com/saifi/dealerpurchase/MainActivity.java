@@ -181,9 +181,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (warrenty == "") {
                     Toast.makeText(MainActivity.this, "Select Warranty", Toast.LENGTH_SHORT).show();
                 }
-                else if (brand_id == "") {
-                    Toast.makeText(MainActivity.this, "Select Brand", Toast.LENGTH_SHORT).show();
-                }
+//                else if (brand_id == "") {
+//                    Toast.makeText(MainActivity.this, "Select Brand", Toast.LENGTH_SHORT).show();
+//                }
                 else if (idmodel == "") {
                     Toast.makeText(MainActivity.this, "Select Model", Toast.LENGTH_SHORT).show();
                 }
