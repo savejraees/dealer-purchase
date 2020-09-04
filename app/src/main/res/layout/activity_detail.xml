@@ -27,7 +27,7 @@
         android:paddingLeft="5dp"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textColorHint="#E3E0E0"></EditText>
+        android:textColorHint="#E3E0E0"/>
 
         <Button
             android:id="@+id/btnImeiScan"
@@ -57,7 +57,7 @@
         android:paddingLeft="5dp"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textColorHint="#E3E0E0"></EditText>
+        android:textColorHint="#E3E0E0"/>
 
         <Button
             android:id="@+id/btnBarcodeScan"
@@ -86,7 +86,7 @@
         android:layout_marginTop="10dp"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textColorHint="#E3E0E0"></EditText>
+        android:textColorHint="#E3E0E0"/>
 
 
 
@@ -101,7 +101,7 @@
         android:layout_marginTop="10dp"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textColorHint="#E3E0E0"></EditText>
+        android:textColorHint="#E3E0E0"/>
 
 
     <LinearLayout
