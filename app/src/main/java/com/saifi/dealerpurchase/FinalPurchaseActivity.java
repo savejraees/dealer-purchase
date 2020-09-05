@@ -122,14 +122,14 @@ public class FinalPurchaseActivity extends AppCompatActivity {
         doneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (upload == false) {
-                    Toast.makeText(FinalPurchaseActivity.this, "Please Upload image or pdf", Toast.LENGTH_SHORT).show();
-                } else {
+//                if (upload == false) {
+//                    Toast.makeText(FinalPurchaseActivity.this, "Please Upload image or pdf", Toast.LENGTH_SHORT).show();
+//                } else {
                     DetailActivity.dealerId = "";
                     MainActivity.dealerName = "";
                     startActivity(new Intent(FinalPurchaseActivity.this, MainActivity.class));
                     finishAffinity();
-                }
+             //   }
 
             }
         });
