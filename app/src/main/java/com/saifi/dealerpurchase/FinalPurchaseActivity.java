@@ -27,8 +27,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
@@ -39,7 +43,6 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.saifi.dealerpurchase.adapter.MobileImageAdapter;
 import com.saifi.dealerpurchase.model.ImageModel;
 import com.saifi.dealerpurchase.util.ApiFactory;
 import com.saifi.dealerpurchase.util.ApiInterface;
@@ -333,7 +336,7 @@ public class FinalPurchaseActivity extends AppCompatActivity {
 
     private File createImageFileInVOice() throws IOException {
         String imageFileName = "GOOGLES" + System.currentTimeMillis();
-        String storageDir = Environment.getExternalStorageDirectory() + "/skImages";
+        String storageDir = Environment.getExternalStorageDirectory() + "/CellImages";
         Log.d("storagepath===", storageDir);
         File dir = new File(storageDir);
         if (!dir.exists())
@@ -358,6 +361,7 @@ public class FinalPurchaseActivity extends AppCompatActivity {
             }
             if (requestCode == 2) {
                 rotateImageInvoice();
+
             }
             if (resultCode == RESULT_OK && requestCode == 200) {
                 Uri uri = data.getData();
@@ -459,7 +463,7 @@ public class FinalPurchaseActivity extends AppCompatActivity {
             if (Invoicelist.size() > 5) {
                 //Toast.makeText(getApplicationContext(), "Max Limit Only 10", Toast.LENGTH_SHORT).show();
             }
-
+              Log.d("kjhjkhhui", String.valueOf(Invoicelist.size()));
             rv_Invoice.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
             mIMGAdapter = new MobileImageAdapter(Invoicelist, FinalPurchaseActivity.this);
             rv_Invoice.setAdapter(mIMGAdapter);
@@ -469,6 +473,63 @@ public class FinalPurchaseActivity extends AppCompatActivity {
 
         }
     }
+
+    public class MobileImageAdapter extends RecyclerView.Adapter<MobileImageAdapter.ListViewHolder> {
+        ArrayList<ImageModel> list;
+        Context context;
+
+        public MobileImageAdapter(ArrayList<ImageModel> list, Context context) {
+            this.context = context;
+            this.list = list;
+        }
+
+        @Override
+        public MobileImageAdapter.ListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View view = inflater.inflate(R.layout.row_image, null);
+
+            return new MobileImageAdapter.ListViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(MobileImageAdapter.ListViewHolder holder, final int position) {
+            final ImageModel imageModel = list.get(position);
+            holder.image.setImageBitmap(imageModel.getImageMobile());
+            holder.close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeAt(position);
+                }
+            });
+        }
+
+        public void removeAt(int position) {
+            list.remove(position);
+            notifyItemRemoved(position);
+            notifyItemChanged(position);
+            imagePathListInvoice.remove(position);
+        }
+
+        @Override
+        public int getItemCount() {
+            return list.size();
+        }
+
+        class ListViewHolder extends RecyclerView.ViewHolder {
+
+            ImageView image;
+            TextView close;
+
+            public ListViewHolder(View itemView) {
+                super(itemView);
+
+                image = itemView.findViewById(R.id.ivGallery);
+                close = itemView.findViewById(R.id.badge_view);
+            }
+
+        }
+    }
+
 
     private void requestStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)

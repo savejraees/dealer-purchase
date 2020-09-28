@@ -66,12 +66,13 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
     int countScan;
 
     static long totalAmount = 0;
-    static String dealerId="";
+    static String dealerId = "";
     String productCategory, brand_id, seriesName, model_id, warrenty, warrenty_month, conditon_Mobile;
     String imei_no = "", purchase_amount = "", barcode_scan = "", storage = "";
 
     Views views;
     SessonManager sessonManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +95,8 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
         allAclick();
 
     }
+
+
 
     private void init() {
         edt_Imei = findViewById(R.id.edt_Imei);
@@ -135,100 +138,98 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
         btnAddMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edt_Imei.getText().toString().isEmpty()) {
-                    edt_Imei.setError("Can't be Blank");
-                    edt_Imei.requestFocus();
-                } else if (edt_Barcode.getText().toString().isEmpty()) {
-                    edt_Barcode.setError("Can't be Blank");
+
+                if (edt_Barcode.getText().toString().isEmpty()) {
+                    edt_Barcode.setError("Can't be blank");
                     edt_Barcode.requestFocus();
-                } else if (edt_Price.getText().toString().isEmpty()) {
-                    edt_Price.setError("Can't be Blank");
+                }
+                else if(edt_Imei.getText().toString().isEmpty()){
+                    edt_Imei.setError("Can't be blank");
+                    edt_Imei.requestFocus();
+                }
+                else if(edt_Price.getText().toString().isEmpty()){
+                    edt_Price.setError("Can't be blank");
                     edt_Price.requestFocus();
-                } else if (edt_GB.getText().toString().isEmpty()) {
-                    edt_GB.setError("Can't be Blank");
+                }
+                else if(edt_GB.getText().toString().isEmpty()){
+                    edt_GB.setError("Can't be blank");
                     edt_GB.requestFocus();
-                } else {
-                    if (purchase_amount.equals("")) {
-                        purchase_amount = edt_Price.getText().toString();
-                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
-
-                    } else {
-                        purchase_amount = purchase_amount + "," + edt_Price.getText().toString();
-                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
-
-                    }
-                    if (storage.equals("")) {
-                        storage = edt_GB.getText().toString();
-
-                    } else {
-                        storage = storage + "," + edt_GB.getText().toString();
-
-                    }
-
+                }
+                else {
                     setRv();
 
-                    Log.d("daslksa", purchase_amount + " " + storage);
+//                    Log.d("daslksa", purchase_amount + " " + storage);
 
                     edt_Imei.getText().clear();
                     edt_Barcode.getText().clear();
                     edt_Price.getText().clear();
                     edt_GB.getText().clear();
-
-
                 }
+
+
 
             }
         });
         btnSubmitDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edt_Imei.getText().toString().isEmpty()&&edt_Barcode.getText().toString().isEmpty()
-                && edt_Price.getText().toString().isEmpty()&& edt_GB.getText().toString().isEmpty()) {
-//                    edt_Imei.setError("Can't be Blank");
-//                    edt_Imei.requestFocus();
-                    if (storage.equals("")){
-                        Toast.makeText(DetailActivity.this, "Please add Some Detail", Toast.LENGTH_SHORT).show();
-                    }else {
-                        hitSubmitApi();
-                    }
 
-                }
+                if (detailsList.size() == 0) {
+                    if ((!edt_Imei.getText().toString().isEmpty()) && (!edt_Barcode.getText().toString().isEmpty())
+                            && (!edt_Price.getText().toString().isEmpty()) && (!edt_GB.getText().toString().isEmpty())) {
 
-                if (!(edt_Imei.getText().toString().isEmpty()&&edt_Barcode.getText().toString().isEmpty()
-                        && edt_Price.getText().toString().isEmpty()&& edt_GB.getText().toString().isEmpty())) {
-                    if (purchase_amount.equals("")) {
+                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
                         purchase_amount = edt_Price.getText().toString();
-                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
-
-                    } else {
-                        purchase_amount = purchase_amount + "," + edt_Price.getText().toString();
-                        totalAmount = totalAmount + Long.parseLong(edt_Price.getText().toString());
-
-                    }
-                    if (storage.equals("")) {
                         storage = edt_GB.getText().toString();
-
-                    } else {
-                        storage = storage + "," + edt_GB.getText().toString();
-
-                    }
-                    if (imei_no.equals("")) {
                         imei_no = edt_Imei.getText().toString();
-                    } else {
-                        imei_no = imei_no + "," + edt_Imei.getText().toString();;
-                    }
-                    if (barcode_scan.equals("")) {
-                        barcode_scan = edt_Barcode.getText().toString();;
-                    } else {
-                        barcode_scan = barcode_scan + "," + edt_Barcode.getText().toString();;;
-                    }
+                        barcode_scan = edt_Barcode.getText().toString();
 
+                    } else {
+                        Toast.makeText(DetailActivity.this, "Please Fill All the Fields from Above Option", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    if ((!edt_Imei.getText().toString().isEmpty()) && (!edt_Barcode.getText().toString().isEmpty())
+                            && (!edt_Price.getText().toString().isEmpty()) && (!edt_GB.getText().toString().isEmpty())) {
 
-                    hitSubmitApi();
-                   // startActivity(new Intent(DetailActivity.this, MainActivity.class));
+                        setRv();
+
+                        for (int i = 0; i < detailsList.size(); i++) {
+                            totalAmount = totalAmount + Long.parseLong(detailsList.get(i).getPrice());
+                            if (i == 0) {
+                                purchase_amount = detailsList.get(i).getPrice();
+                                storage = detailsList.get(i).getGb();
+                                imei_no = detailsList.get(i).getImei();
+                                barcode_scan = detailsList.get(i).getBarcode();
+                            } else {
+                                purchase_amount = purchase_amount + "," + detailsList.get(i).getPrice();
+                                storage = storage + "," + detailsList.get(i).getGb();
+                                imei_no = imei_no + "," + detailsList.get(i).getImei();
+                                barcode_scan = barcode_scan + "," + detailsList.get(i).getBarcode();
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < detailsList.size(); i++) {
+                            totalAmount = totalAmount + Long.parseLong(detailsList.get(i).getPrice());
+                            if (i == 0) {
+                                purchase_amount = detailsList.get(i).getPrice();
+                                storage = detailsList.get(i).getGb();
+                                imei_no = detailsList.get(i).getImei();
+                                barcode_scan = detailsList.get(i).getBarcode();
+                            } else {
+                                purchase_amount = purchase_amount + "," + detailsList.get(i).getPrice();
+                                storage = storage + "," + detailsList.get(i).getGb();
+                                imei_no = imei_no + "," + detailsList.get(i).getImei();
+                                barcode_scan = barcode_scan + "," + detailsList.get(i).getBarcode();
+                            }
+                        }
+
+                    }
 
                 }
 
+                hitSubmitApi();
+
+//                Log.d("klsjlkflks", imei_no+"  "+purchase_amount+"  "+barcode_scan+"   "+storage);
             }
         });
     }
@@ -241,9 +242,9 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
                 .build();
 
         ApiInterface api = retrofit.create(ApiInterface.class);
-        Call<DetailModel> call = api.hitSubmitDetailApi(Url.key,"","Dealer Purchase",productCategory,
-                brand_id,seriesName,model_id,dealerId,warrenty,warrenty_month,conditon_Mobile,sessonManager.getBuisnessLocationId(),
-                sessonManager.getToken(),imei_no,purchase_amount,barcode_scan,storage);
+        Call<DetailModel> call = api.hitSubmitDetailApi(Url.key, "", "Dealer Purchase", productCategory,
+                brand_id, seriesName, model_id, dealerId, warrenty, warrenty_month, conditon_Mobile, sessonManager.getBuisnessLocationId(),
+                sessonManager.getToken(), imei_no, purchase_amount, barcode_scan, storage);
 
         call.enqueue(new Callback<DetailModel>() {
             @Override
@@ -257,16 +258,13 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
 
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                    }
-                    else {
+                    } else {
 
-                        views.showToast(getApplicationContext(), ""+DetailModel.getMsg());
+                        views.showToast(getApplicationContext(), "" + DetailModel.getMsg());
                     }
-                }
-                else
-                {
+                } else {
                     Gson gson = new GsonBuilder().create();
-                    ResponseError responseError = gson.fromJson(response.errorBody().charStream(),ResponseError.class);
+                    ResponseError responseError = gson.fromJson(response.errorBody().charStream(), ResponseError.class);
                     views.showToast(getApplicationContext(), responseError.getMsg());
                 }
             }
@@ -293,6 +291,7 @@ public class DetailActivity extends AppCompatActivity implements ScanResultRecei
         rvDetails.setLayoutManager(layoutManager);
         detailsAdapter = new DetailsAdapter(detailsList, DetailActivity.this);
         rvDetails.setAdapter(detailsAdapter);
+
 
     }
 

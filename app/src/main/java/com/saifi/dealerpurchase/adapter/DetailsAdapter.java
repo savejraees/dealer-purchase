@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,9 +36,19 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.HeroView
         DetailsModel hero = heroList.get(position);
         holder.txtImei.setText(hero.getImei());
         holder.txtBarcode.setText(hero.getBarcode());
-        holder.txtAmount.setText(hero.getPrice()+"/-");
-        holder.txtGB.setText(hero.getGb()+"GB");
+        holder.txtAmount.setText(hero.getPrice());
+        holder.txtGB.setText(hero.getGb());
+        holder.imgRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeItem(position);
+            }
+        });
+    }
 
+    private void removeItem(int position) {
+        heroList.remove(position);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -47,13 +58,14 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.HeroView
 
     class HeroViewHolder extends RecyclerView.ViewHolder {
         TextView txtImei,txtBarcode,txtAmount,txtGB;
-
+        ImageView imgRemove;
         HeroViewHolder(View itemView) {
             super(itemView);
             txtImei = (TextView) itemView.findViewById(R.id.txtImei);
             txtBarcode = (TextView) itemView.findViewById(R.id.txtBarcode);
             txtAmount = (TextView) itemView.findViewById(R.id.txtAmount);
             txtGB = (TextView) itemView.findViewById(R.id.txtGB);
+            imgRemove =  itemView.findViewById(R.id.imgRemove);
 
         }
     }

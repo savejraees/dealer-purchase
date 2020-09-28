@@ -13,34 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp">
-    <EditText
-        android:id="@+id/edt_Imei"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginRight="70dp"
-        android:background="@drawable/loginbuttonshape"
-        android:hint="Imei"
-        android:paddingLeft="5dp"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textColorHint="#E3E0E0"/>
-
-        <Button
-            android:id="@+id/btnImeiScan"
-            android:layout_width="40dp"
-            android:text="Scan"
-            android:textAllCaps="false"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/card_shape"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/white"
-            android:layout_height="40dp"/>
-
-    </RelativeLayout>
 
 
     <RelativeLayout
@@ -72,6 +44,34 @@
 
     </RelativeLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp">
+            <EditText
+                android:id="@+id/edt_Imei"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginRight="70dp"
+                android:background="@drawable/loginbuttonshape"
+                android:hint="Imei"
+                android:paddingLeft="5dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="#E3E0E0"/>
+
+            <Button
+                android:id="@+id/btnImeiScan"
+                android:layout_width="40dp"
+                android:text="Scan"
+                android:textAllCaps="false"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/card_shape"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/white"
+                android:layout_height="40dp"/>
+
+        </RelativeLayout>
 
 
     <EditText
@@ -171,7 +171,7 @@
                 android:textSize="20dp"
                 android:gravity="center"
                 android:textColor="@android:color/black"
-                android:text="Amount"
+                android:text="Amount\n(Rs.)"
                 tools:ignore="MissingConstraints"/>
 
             <TextView
@@ -187,6 +187,7 @@
                 tools:ignore="MissingConstraints"/>
 
         </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDetails"
         android:layout_width="match_parent"
